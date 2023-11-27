@@ -9,7 +9,9 @@ export const connectToDatabase = async (mongoUrl: string) => {
     await mongoose.connect(mongoUrl);
     mongoose.set("debug", true);
     debug(chalk.blue("Connected to databse"));
-  } catch (error) {
-    debug(chalk.red("Falided connecting to database"));
+  } catch (error: unknown) {
+    debug(
+      `Failed connecting to database: ${chalk.red((error as Error).message)}`,
+    );
   }
 };
