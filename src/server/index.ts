@@ -2,6 +2,7 @@ import morgan from "morgan";
 import app from "./app.js";
 import express from "express";
 import cors from "cors";
+import pingRouter from "../features/ping/router/pingRouter.js";
 
 const allowedOrigins = [
   "http://localhost:5173",
@@ -17,3 +18,5 @@ app.use(morgan("dev"));
 app.use(cors(options));
 
 app.use(express.json());
+
+app.use("/", pingRouter);
