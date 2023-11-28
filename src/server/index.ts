@@ -7,10 +7,11 @@ import {
   endpointNotFound,
   generalError,
 } from "./middlewares/errors/errorMiddlewares.js";
+import bikesRouter from "../features/bikes/router/bikesRouter.js";
 
 const allowedOrigins = [
-  "http://localhost:5173",
-  "https://francisco-grande-202309-bcn-front.netlify.app/",
+  process.env.ALLOWED_ORIGIN_DEV!,
+  process.env.ALLOWED_ORIGIN_PROD!,
 ];
 
 const options: cors.CorsOptions = {
@@ -22,6 +23,8 @@ app.use(morgan("dev"));
 app.use(cors(options));
 
 app.use(express.json());
+
+app.use("/bikes", bikesRouter);
 
 app.use("/", pingRouter);
 
