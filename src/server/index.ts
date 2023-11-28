@@ -3,6 +3,10 @@ import app from "./app.js";
 import express from "express";
 import cors from "cors";
 import pingRouter from "../features/ping/router/pingRouter.js";
+import {
+  endpointNotFound,
+  generalError,
+} from "./middlewares/errors/errorMiddlewares.js";
 
 const allowedOrigins = [
   "http://localhost:5173",
@@ -20,3 +24,7 @@ app.use(cors(options));
 app.use(express.json());
 
 app.use("/", pingRouter);
+
+app.use(endpointNotFound);
+
+app.use(generalError);
