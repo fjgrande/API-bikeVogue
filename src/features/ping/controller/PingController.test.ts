@@ -12,7 +12,7 @@ describe("Given a PingController's controller", () => {
 
     pingController.getPong(req as Request, res as Response);
 
-    test("Then it should call its method status with 200", () => {
+    test("Then it should call its method status with 200 status code", () => {
       const expectedStatus = 200;
 
       expect(res.status).toHaveBeenCalledWith(expectedStatus);
