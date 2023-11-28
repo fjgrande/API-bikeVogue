@@ -1,4 +1,3 @@
-import { type Request } from "express";
 import { type Types } from "mongoose";
 
 export interface BikeData {

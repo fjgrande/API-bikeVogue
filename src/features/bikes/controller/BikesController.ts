@@ -1,4 +1,4 @@
-import { type NextFunction, type Request, type Response } from "express";
+import { type Request, type Response } from "express";
 import { type BikesRepository } from "../repository/types";
 
 class BikesController {
