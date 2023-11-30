@@ -17,6 +17,7 @@ describe("Given a PingController's controller", () => {
 
       expect(res.status).toHaveBeenCalledWith(expectedStatus);
     });
+
     test("Then it should call its method json with message '🏓'", () => {
       const expectedMessage = { message: "🏓" };
 

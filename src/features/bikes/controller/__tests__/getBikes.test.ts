@@ -14,6 +14,7 @@ describe("Given a BikesController's getBikes method", () => {
   const bikesRepository: BikesRepository = {
     getBikes: jest.fn().mockResolvedValue(bikes),
   };
+
   const bikesController = new BikesController(bikesRepository);
 
   describe("When it receives a request", () => {
