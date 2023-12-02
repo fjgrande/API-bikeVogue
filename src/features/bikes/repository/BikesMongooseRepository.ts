@@ -8,6 +8,16 @@ class BikesMongooseRepository implements BikesRepository {
 
     return bikes;
   }
+
+  public async getBikesById(id: string): Promise<BikeStructure> {
+    const bike = await Bike.findById(id);
+
+    if (!bike) {
+      throw new Error("Can't get bike");
+    }
+
+    return bike;
+  }
 }
 
 export default BikesMongooseRepository;
