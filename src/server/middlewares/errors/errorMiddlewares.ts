@@ -12,8 +12,11 @@ export const generalError = (
   _next: NextFunction,
 ) => {
   const statusCode = error.statusCode ?? 500;
+
   const privateMessage = error.publicMessage ?? error.message;
+
   debug(chalk.redBright("Error: ", privateMessage));
+
   res.status(statusCode).json({ error: privateMessage });
 };
 
@@ -23,5 +26,6 @@ export const endpointNotFound = (
   next: NextFunction,
 ) => {
   const customError = new CustomError("Endpoint not found", 404);
+
   next(customError);
 };

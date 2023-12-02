@@ -19,15 +19,10 @@ const options: cors.CorsOptions = {
 };
 
 app.use(morgan("dev"));
-
 app.use(cors(options));
-
 app.use(express.json());
 
 app.use("/bikes", bikesRouter);
-
 app.use("/", pingRouter);
-
 app.use(endpointNotFound);
-
 app.use(generalError);
