@@ -1,0 +1,56 @@
+{
+  "info": {
+    "_postman_id": "6777a338-0655-48df-aa7b-d3b0b6e6d285",
+    "name": "bikes",
+    "description": "Api of Bikes",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "30606289"
+  },
+  "item": [
+    {
+      "name": "bikes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/bikes",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["bikes"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "ping",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": [""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "endpointError",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/bik",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["bik"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
