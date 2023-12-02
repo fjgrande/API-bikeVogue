@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
 import { type BikeStructure } from "../types";
 
-export const bikesMocks: BikeStructure[] = [
+const bikesMockById: BikeStructure[] = [
   {
     _id: new Types.ObjectId("6564a20f803b820996b50a00"),
     model: "Orbea Orca M31ETEAM 23",
@@ -26,4 +26,4 @@ export const bikesMocks: BikeStructure[] = [
   },
 ];
 
-export default bikesMocks;
+export default bikesMockById;

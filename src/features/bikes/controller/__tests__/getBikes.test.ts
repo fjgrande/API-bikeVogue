@@ -8,15 +8,16 @@ beforeEach(() => {
   jest.restoreAllMocks();
 });
 
+const bikes: BikeData[] = bikesMocks;
+
+const bikesRepository: BikesRepository = {
+  getBikes: jest.fn().mockResolvedValue(bikes),
+  getBikesById: jest.fn().mockResolvedValue(bikes[0]),
+};
+
+const bikesController = new BikesController(bikesRepository);
+
 describe("Given a BikesController's getBikes method", () => {
-  const bikes: BikeData[] = bikesMocks;
-
-  const bikesRepository: BikesRepository = {
-    getBikes: jest.fn().mockResolvedValue(bikes),
-  };
-
-  const bikesController = new BikesController(bikesRepository);
-
   describe("When it receives a request", () => {
     const req = {};
     const res: Pick<Response, "status" | "json"> = {
