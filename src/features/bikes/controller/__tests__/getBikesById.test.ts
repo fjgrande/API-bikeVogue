@@ -4,7 +4,6 @@ import { type BikesRepository } from "../../repository/types";
 import BikesController from "../BikesController";
 import { type BikeData } from "../../types";
 import Bike from "../../model/Bike";
-import CustomError from "../../../../server/CustomError/CustomError";
 
 beforeEach(() => {
   jest.clearAllMocks();

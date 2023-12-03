@@ -21,10 +21,8 @@ class BikesController {
       const bike = await this.bikesRepository.getBikesById(id);
 
       res.status(200).json(bike);
-    } catch {
-      const bikeError = new CustomError("Can't get bike", 404);
-
-      next(bikeError);
+    } catch (error) {
+      next(error);
     }
   };
 }
