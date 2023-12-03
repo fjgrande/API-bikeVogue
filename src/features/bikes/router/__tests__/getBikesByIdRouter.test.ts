@@ -4,7 +4,6 @@ import "../../../../setupTests";
 import request from "supertest";
 import bikesMocks from "../../mocks/bikesMocks";
 import Bike from "../../model/Bike";
-import bikesMockById from "../../mocks/bikesMockById";
 
 describe("Given a GET '/bikes/ :id' endpoint", () => {
   describe("When it receives a valid id in the body's request", () => {
@@ -16,6 +15,18 @@ describe("Given a GET '/bikes/ :id' endpoint", () => {
       const response = await request(app).get(path).expect(expectedStatus);
 
       expect(response.body).toHaveProperty("model");
+    });
+  });
+
+  describe("When it receives a request with a non-existent id '5fbd2a81f4b3c96d58d32c9a'", () => {
+    test("Then it should return a response with 404 status code and 'Can't get bike' error message", async () => {
+      const expectedStatus = 404;
+      const path = `/bikes/5fbd2a81f4b3c96d58d32c9a`;
+      const expectedErrorMessage = "Can't get bike";
+
+      const response = await request(app).get(path).expect(expectedStatus);
+
+      expect(response.body).toHaveProperty("error", expectedErrorMessage);
     });
   });
 });
