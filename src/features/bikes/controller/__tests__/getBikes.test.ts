@@ -13,6 +13,7 @@ const bikes: BikeData[] = bikesMocks;
 const bikesRepository: BikesRepository = {
   getBikes: jest.fn().mockResolvedValue(bikes),
   getBikesById: jest.fn().mockResolvedValue(bikes[0]),
+  deleteBike: jest.fn(),
 };
 
 const bikesController = new BikesController(bikesRepository);
