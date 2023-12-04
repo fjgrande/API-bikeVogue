@@ -22,6 +22,14 @@ class BikesMongooseRepository implements BikesRepository {
       throw new CustomError("Can't get bike", 404);
     }
   }
+
+  public async deleteBike(id: string): Promise<void> {
+    try {
+      await Bike.findByIdAndDelete(id);
+    } catch (error) {
+      throw new CustomError("Error deleting bike", 400);
+    }
+  }
 }
 
 export default BikesMongooseRepository;
