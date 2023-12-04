@@ -15,6 +15,7 @@ describe("Given a getBikesById controller", () => {
   const bikesRepository: BikesRepository = {
     getBikes: jest.fn().mockResolvedValue(bikes),
     getBikesById: jest.fn().mockResolvedValue(bikes[0]),
+    deleteBike: jest.fn(),
   };
 
   const bikesController = new BikesController(bikesRepository);
@@ -33,7 +34,7 @@ describe("Given a getBikesById controller", () => {
 
     const next = jest.fn();
 
-    test("Then it should call the response's method status with 200 and the book that corresponds to that id", async () => {
+    test("Then it should call the response's method status with 200 and the bike that corresponds to that id", async () => {
       const expectedBike = bikesMocks[0];
       const expectedStatusCode = 200;
 

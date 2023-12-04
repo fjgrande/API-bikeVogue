@@ -1,6 +1,5 @@
 import { type NextFunction, type Request, type Response } from "express";
 import { type BikesRepository } from "../repository/types";
-import CustomError from "../../../server/CustomError/CustomError.js";
 
 class BikesController {
   constructor(private readonly bikesRepository: BikesRepository) {}
@@ -21,6 +20,21 @@ class BikesController {
       const bike = await this.bikesRepository.getBikesById(id);
 
       res.status(200).json(bike);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public deleteBike = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    const { id } = req.params;
+    try {
+      await this.bikesRepository.deleteBike(id);
+
+      res.status(200).json({ message: "The bike has been deleted" });
     } catch (error) {
       next(error);
     }
