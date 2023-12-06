@@ -51,6 +51,60 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "getBikeById",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/bikes/656f38ec24f8541d6d6bf044",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["bikes", "656f38ec24f8541d6d6bf044"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "deleteBike",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/bikes/delete/656f38ec24f8541d6d6bf044",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["bikes", "delete", "656f38ec24f8541d6d6bf044"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "addBike",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n            \r\n            \"model\": \"MTB BH\",\r\n            \"image\": \"https://i.ibb.co/WkL7BLF/9.webp\",\r\n            \"price\": 2.649,\r\n            \"brand\": \"BH\",\r\n            \"material\": \"Carbono\",\r\n            \"modality\": \"Road\",\r\n            \"size\": \"M\",\r\n            \"component\": \"Shimano 105\"\r\n        }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/bikes/add",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["bikes", "add"]
+        }
+      },
+      "response": []
     }
   ]
 }

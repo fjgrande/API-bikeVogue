@@ -1,4 +1,5 @@
 import { type Types } from "mongoose";
+import { type Request } from "express";
 
 export interface BikeData {
   model: string;
@@ -13,4 +14,8 @@ export interface BikeData {
 
 export interface BikeStructure extends BikeData {
   _id: Types.ObjectId;
+}
+
+export interface CustomRequest extends Request {
+  body: BikeData;
 }
