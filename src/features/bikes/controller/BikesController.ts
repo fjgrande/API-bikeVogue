@@ -17,6 +17,7 @@ class BikesController {
     next: NextFunction,
   ) => {
     const { id } = req.params;
+
     try {
       const bike = await this.bikesRepository.getBikesById(id);
 
@@ -32,6 +33,7 @@ class BikesController {
     next: NextFunction,
   ) => {
     const { id } = req.params;
+
     try {
       await this.bikesRepository.deleteBike(id);
 
@@ -46,7 +48,7 @@ class BikesController {
     res: Response,
     next: NextFunction,
   ) => {
-    const newBike: BikeData = req.body;
+    const newBike = req.body;
     try {
       const addedBike = await this.bikesRepository.addBike(newBike);
 
