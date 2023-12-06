@@ -1,6 +1,6 @@
 import CustomError from "../../../server/CustomError/CustomError.js";
 import Bike from "../model/Bike.js";
-import { type BikeStructure } from "../types";
+import { type BikeData, type BikeStructure } from "../types";
 import { type BikesRepository } from "./types";
 
 class BikesMongooseRepository implements BikesRepository {
@@ -14,12 +14,12 @@ class BikesMongooseRepository implements BikesRepository {
     try {
       const bike = await Bike.findById(id);
       if (!bike) {
-        throw new CustomError("Can't get bike", 404);
+        throw new Error("Can't get bike");
       }
 
       return bike;
     } catch (error) {
-      throw new CustomError("Can't get bike", 404);
+      throw new CustomError("Error getting the bike", 404);
     }
   }
 
@@ -28,6 +28,15 @@ class BikesMongooseRepository implements BikesRepository {
       await Bike.findByIdAndDelete(id);
     } catch (error) {
       throw new CustomError("Error deleting bike", 400);
+    }
+  }
+
+  public async addBike(bike: BikeData): Promise<BikeStructure> {
+    try {
+      const newBike = await Bike.create(bike);
+      return newBike;
+    } catch (error) {
+      throw new CustomError("Error creating the new bike", 400);
     }
   }
 }
