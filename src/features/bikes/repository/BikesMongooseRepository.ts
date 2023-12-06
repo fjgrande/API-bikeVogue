@@ -13,6 +13,7 @@ class BikesMongooseRepository implements BikesRepository {
   public async getBikesById(id: string): Promise<BikeStructure> {
     try {
       const bike = await Bike.findById(id);
+
       if (!bike) {
         throw new Error("Can't get bike");
       }
@@ -34,6 +35,7 @@ class BikesMongooseRepository implements BikesRepository {
   public async addBike(bike: BikeData): Promise<BikeStructure> {
     try {
       const newBike = await Bike.create(bike);
+
       return newBike;
     } catch (error) {
       throw new CustomError("Error creating the new bike", 400);
