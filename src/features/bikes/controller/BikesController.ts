@@ -1,5 +1,6 @@
 import { type NextFunction, type Request, type Response } from "express";
 import { type BikesRepository } from "../repository/types";
+import { type BikeData, type CustomRequest } from "../types";
 
 class BikesController {
   constructor(private readonly bikesRepository: BikesRepository) {}
@@ -35,6 +36,21 @@ class BikesController {
       await this.bikesRepository.deleteBike(id);
 
       res.status(200).json({ message: "The bike has been deleted" });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public addBike = async (
+    req: CustomRequest,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    const newBike: BikeData = req.body;
+    try {
+      const addedBike = await this.bikesRepository.addBike(newBike);
+
+      res.status(201).json({ message: "The bike has been created", addedBike });
     } catch (error) {
       next(error);
     }
