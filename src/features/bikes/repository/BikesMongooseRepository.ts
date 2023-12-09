@@ -12,13 +12,13 @@ class BikesMongooseRepository implements BikesRepository {
 
   public async getBikesById(id: string): Promise<BikeStructure> {
     try {
-      const bike = await Bike.findById(id);
+      const myBike = await Bike.findById(id);
 
-      if (!bike) {
+      if (!myBike) {
         throw new Error("Can't get bike");
       }
 
-      return bike;
+      return myBike;
     } catch (error) {
       throw new CustomError("Error getting the bike", 404);
     }
