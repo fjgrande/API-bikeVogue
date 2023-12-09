@@ -49,7 +49,7 @@ describe("Given a getBikesById controller", () => {
         next as NextFunction,
       );
 
-      expect(res.json).toHaveBeenCalledWith(expectedBike);
+      expect(res.json).toHaveBeenCalledWith({ myBike: expectedBike });
     });
 
     test("Then it should call the response's method status code with 200", async () => {
