@@ -19,9 +19,9 @@ class BikesController {
     const { id } = req.params;
 
     try {
-      const bike = await this.bikesRepository.getBikesById(id);
+      const myBike = await this.bikesRepository.getBikesById(id);
 
-      res.status(200).json(bike);
+      res.status(200).json({ myBike });
     } catch (error) {
       next(error);
     }
