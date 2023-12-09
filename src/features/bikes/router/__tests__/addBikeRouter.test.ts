@@ -6,7 +6,7 @@ import { addBikeMock } from "../../mocks/addBikeMock";
 import bikesMocks from "../../mocks/bikesMocks";
 
 describe("Given a POST method '/bikes/add' endpoint", () => {
-  describe("When it receives a valid book in the body's request", () => {
+  describe("When it receives a valid bike in the body's request", () => {
     test("Then it should call the response's method status code with 201 and the 'The bike has been created' message", async () => {
       const path = "/bikes/add";
       const expectedStatus = 201;

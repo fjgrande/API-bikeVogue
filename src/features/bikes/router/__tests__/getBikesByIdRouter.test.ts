@@ -15,7 +15,7 @@ describe("Given a GET '/bikes/ :id' endpoint", () => {
 
       const response = await request(app).get(path).expect(expectedStatus);
 
-      expect(response.body).toHaveProperty("model");
+      expect(response.body).toHaveProperty("myBike");
     });
   });
 
