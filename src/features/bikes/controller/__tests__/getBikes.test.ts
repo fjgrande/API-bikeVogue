@@ -15,6 +15,7 @@ const bikesRepository: BikesRepository = {
   getBikesById: jest.fn(),
   deleteBike: jest.fn(),
   addBike: jest.fn(),
+  updateBike: jest.fn(),
 };
 
 const bikesController = new BikesController(bikesRepository);

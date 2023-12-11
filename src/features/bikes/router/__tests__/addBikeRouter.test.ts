@@ -3,7 +3,6 @@ import "../../../../server/index";
 import "../../../../setupTests";
 import request from "supertest";
 import { addBikeMock } from "../../mocks/addBikeMock";
-import bikesMocks from "../../mocks/bikesMocks";
 
 describe("Given a POST method '/bikes/add' endpoint", () => {
   describe("When it receives a valid bike in the body's request", () => {

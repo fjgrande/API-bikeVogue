@@ -18,6 +18,7 @@ describe("Given a getBikesById controller", () => {
     getBikesById: jest.fn().mockResolvedValue(bikes[0]),
     deleteBike: jest.fn(),
     addBike: jest.fn(),
+    updateBike: jest.fn(),
   };
 
   const bikesController = new BikesController(bikesRepository);
@@ -79,6 +80,7 @@ describe("Given a getBikesById controller", () => {
           .mockRejectedValue(new CustomError("Can't get bike", 404)),
         deleteBike: jest.fn(),
         addBike: jest.fn(),
+        updateBike: jest.fn(),
       };
 
       const bikesController = new BikesController(bikesRepository);
