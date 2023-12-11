@@ -5,7 +5,7 @@ import { type BikesRepository } from "./types";
 
 class BikesMongooseRepository implements BikesRepository {
   public async getBikes(): Promise<BikeStructure[]> {
-    const bikes = await Bike.find().limit(10);
+    const bikes = await Bike.find().limit(10).sort({ _id: -1 });
 
     return bikes;
   }
@@ -19,7 +19,7 @@ class BikesMongooseRepository implements BikesRepository {
       }
 
       return myBike;
-    } catch (error) {
+    } catch {
       throw new CustomError("Error getting the bike", 404);
     }
   }
@@ -39,6 +39,21 @@ class BikesMongooseRepository implements BikesRepository {
       return newBike;
     } catch (error) {
       throw new CustomError("Error creating the new bike", 400);
+    }
+  }
+
+  public async updateBike(bike: BikeStructure): Promise<BikeStructure> {
+    try {
+      const updatedBike = await Bike.findByIdAndUpdate(bike._id, bike, {
+        new: true,
+      });
+      if (!updatedBike) {
+        throw new Error("Bike not found");
+      }
+
+      return updatedBike;
+    } catch {
+      throw new CustomError("Error update the new bike", 400);
     }
   }
 }

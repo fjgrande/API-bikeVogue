@@ -11,6 +11,7 @@ describe("Given a addBike controller", () => {
     getBikesById: jest.fn(),
     deleteBike: jest.fn(),
     addBike: jest.fn().mockResolvedValue(bikesMocks[0]),
+    updateBike: jest.fn(),
   };
 
   const bikesController = new BikesController(bikesRepository);
@@ -74,6 +75,7 @@ describe("Given a addBike controller", () => {
         getBikesById: jest.fn(),
         deleteBike: jest.fn(),
         addBike: jest.fn().mockRejectedValue(expectedErrorMessage),
+        updateBike: jest.fn(),
       };
 
       const bikesController = new BikesController(bikesRepository);

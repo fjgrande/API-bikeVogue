@@ -19,3 +19,7 @@ export interface BikeStructure extends BikeData {
 export interface CustomRequest extends Request {
   body: BikeData;
 }
+
+export interface CustomUpdateRequest extends Request {
+  body: BikeStructure;
+}
