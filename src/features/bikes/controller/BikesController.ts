@@ -1,6 +1,7 @@
 import { type NextFunction, type Request, type Response } from "express";
 import { type BikesRepository } from "../repository/types";
-import { type BikeData, type CustomRequest } from "../types";
+import { type CustomUpdateRequest, type CustomRequest } from "../types";
+import CustomError from "../../../server/CustomError/CustomError.js";
 
 class BikesController {
   constructor(private readonly bikesRepository: BikesRepository) {}
@@ -53,6 +54,24 @@ class BikesController {
       const addedBike = await this.bikesRepository.addBike(newBike);
 
       res.status(201).json({ message: "The bike has been created", addedBike });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public updateBike = async (
+    req: CustomUpdateRequest,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    const { body } = req;
+
+    try {
+      const updateBike = await this.bikesRepository.updateBike(body);
+      res.status(200).json({
+        message: "The bike has been update",
+        modifyBike: updateBike,
+      });
     } catch (error) {
       next(error);
     }
