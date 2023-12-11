@@ -1,7 +1,6 @@
 import { type NextFunction, type Request, type Response } from "express";
 import { type BikesRepository } from "../repository/types";
 import { type CustomUpdateRequest, type CustomRequest } from "../types";
-import CustomError from "../../../server/CustomError/CustomError.js";
 
 class BikesController {
   constructor(private readonly bikesRepository: BikesRepository) {}
