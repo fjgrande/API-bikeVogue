@@ -5,4 +5,5 @@ export interface BikesRepository {
   getBikesById: (id: string) => Promise<BikeStructure>;
   deleteBike: (id: string) => Promise<void>;
   addBike: (bike: BikeData) => Promise<BikeStructure>;
+  updateBike: (bike: BikeStructure) => Promise<BikeStructure>;
 }
