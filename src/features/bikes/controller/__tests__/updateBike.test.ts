@@ -32,8 +32,23 @@ describe("Given a updateBike controller", () => {
     };
     const next = jest.fn();
 
-    test("Then it should  calls the response's method with status code 200, the message 'The bike has been update' and the bike update", async () => {
+    test("Then it should  calls the response's method with status code 200", async () => {
       const expectStatusCode = 200;
+
+      Bike.findByIdAndUpdate = jest
+        .fn()
+        .mockResolvedValue(jest.fn().mockResolvedValue(updateBikeMock));
+
+      await bikesController.updateBike(
+        req as CustomUpdateRequest,
+        res as Response,
+        next as NextFunction,
+      );
+
+      expect(res.status).toHaveBeenCalledWith(expectStatusCode);
+    });
+
+    test("Then it should call its method json with the message 'The bike has been update'", async () => {
       const expectedMessage = "The bike has been update";
       const expectedResult = {
         message: expectedMessage,
@@ -50,7 +65,6 @@ describe("Given a updateBike controller", () => {
         next as NextFunction,
       );
 
-      expect(res.status).toHaveBeenCalledWith(expectStatusCode);
       expect(res.json).toHaveBeenCalledWith(expectedResult);
     });
   });
