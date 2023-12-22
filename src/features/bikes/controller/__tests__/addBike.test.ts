@@ -1,26 +1,24 @@
 import { type NextFunction, type Request, type Response } from "express";
 import { addBikeMock } from "../../mocks/addBikeMock";
 import { type BikesRepository } from "../../repository/types";
-import { type CustomRequest } from "../../types";
+import { type ResponsePick, type CustomRequest } from "../../types";
 import BikesController from "../BikesController";
 import bikesMocks from "../../mocks/bikesMocks";
+import {
+  createMockBikesRejectedValue,
+  createMockBikesResolvedValue,
+} from "../../mocks/createMockBikesRepository";
+import CustomError from "../../../../server/CustomError/CustomError";
 
 describe("Given a addBike controller", () => {
-  const bikesRepository: BikesRepository = {
-    getBikes: jest.fn(),
-    getBikesById: jest.fn(),
-    deleteBike: jest.fn(),
-    addBike: jest.fn().mockResolvedValue(bikesMocks[0]),
-    updateBike: jest.fn(),
-  };
-
+  const bikesRepository: BikesRepository = createMockBikesResolvedValue();
   const bikesController = new BikesController(bikesRepository);
 
   describe("When it receives a request with a valid bike on its body, a response and a next function", () => {
     const req: Partial<CustomRequest> = {
       body: addBikeMock,
     };
-    const res: Pick<Response, "status" | "json"> = {
+    const res: ResponsePick = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
     };
@@ -60,7 +58,7 @@ describe("Given a addBike controller", () => {
       body: addBikeMock,
     };
 
-    const res: Pick<Response, "status" | "json"> = {
+    const res: ResponsePick = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
     };
@@ -68,16 +66,9 @@ describe("Given a addBike controller", () => {
     const next = jest.fn();
 
     test("Then it should call the next function with the message 'Error creating the new bike'", async () => {
-      const expectedErrorMessage = "Error creating the new bike";
-
-      const bikesRepository: BikesRepository = {
-        getBikes: jest.fn(),
-        getBikesById: jest.fn(),
-        deleteBike: jest.fn(),
-        addBike: jest.fn().mockRejectedValue(expectedErrorMessage),
-        updateBike: jest.fn(),
-      };
-
+      const expectedError = new CustomError("Error creating the new bike", 400);
+      const bikesRepository: BikesRepository =
+        createMockBikesRejectedValue(expectedError);
       const bikesController = new BikesController(bikesRepository);
 
       await bikesController.addBike(
@@ -86,7 +77,7 @@ describe("Given a addBike controller", () => {
         next as NextFunction,
       );
 
-      expect(next).toHaveBeenCalledWith(expectedErrorMessage);
+      expect(next).toHaveBeenCalledWith(expectedError);
     });
   });
 });

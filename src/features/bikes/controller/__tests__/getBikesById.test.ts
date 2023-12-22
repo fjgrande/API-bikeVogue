@@ -2,25 +2,20 @@ import { type NextFunction, type Request, type Response } from "express";
 import bikesMocks from "../../mocks/bikesMocks";
 import { type BikesRepository } from "../../repository/types";
 import BikesController from "../BikesController";
-import { type BikeData } from "../../types";
+import { type ResponsePick, type BikeData } from "../../types";
 import Bike from "../../model/Bike";
 import CustomError from "../../../../server/CustomError/CustomError";
+import {
+  createMockBikesRejectedValue,
+  createMockBikesResolvedValue,
+} from "../../mocks/createMockBikesRepository";
 
 beforeEach(() => {
   jest.clearAllMocks();
 });
 
 describe("Given a getBikesById controller", () => {
-  const bikes: BikeData[] = bikesMocks;
-
-  const bikesRepository: BikesRepository = {
-    getBikes: jest.fn(),
-    getBikesById: jest.fn().mockResolvedValue(bikes[0]),
-    deleteBike: jest.fn(),
-    addBike: jest.fn(),
-    updateBike: jest.fn(),
-  };
-
+  const bikesRepository: BikesRepository = createMockBikesResolvedValue();
   const bikesController = new BikesController(bikesRepository);
 
   describe("When it receives a request with a valid id on its body, a response and a next function", () => {
@@ -30,7 +25,7 @@ describe("Given a getBikesById controller", () => {
       params: { id: idBike },
     };
 
-    const res: Pick<Response, "status" | "json"> = {
+    const res: ResponsePick = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
     };
@@ -71,18 +66,9 @@ describe("Given a getBikesById controller", () => {
     });
 
     describe("When it receives a request with ann invalid id on its body, a response and a next function", () => {
-      const bikes: BikeData[] = bikesMocks;
-
-      const bikesRepository: BikesRepository = {
-        getBikes: jest.fn(),
-        getBikesById: jest
-          .fn()
-          .mockRejectedValue(new CustomError("Can't get bike", 404)),
-        deleteBike: jest.fn(),
-        addBike: jest.fn(),
-        updateBike: jest.fn(),
-      };
-
+      const expectedError = new CustomError("Can't get bike", 404);
+      const bikesRepository: BikesRepository =
+        createMockBikesRejectedValue(expectedError);
       const bikesController = new BikesController(bikesRepository);
 
       const idBike = "idInvalid";
@@ -90,7 +76,7 @@ describe("Given a getBikesById controller", () => {
         params: { id: idBike },
       };
 
-      const res: Pick<Response, "status" | "json"> = {
+      const res: ResponsePick = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
       };
