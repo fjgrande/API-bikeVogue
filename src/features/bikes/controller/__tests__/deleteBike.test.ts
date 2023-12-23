@@ -1,21 +1,19 @@
 import { type NextFunction, type Request, type Response } from "express";
 import { type BikesRepository } from "../../repository/types";
 import BikesController from "../BikesController";
-import type CustomError from "../../../../server/CustomError/CustomError";
+import CustomError from "../../../../server/CustomError/CustomError";
+import {
+  createMockBikesRejectedValue,
+  createMockBikesResolvedValue,
+} from "../../mocks/createMockBikesRepository";
+import { type ResponsePick } from "../../types";
 
 beforeEach(() => {
   jest.clearAllMocks();
 });
 
 describe("Given a deleteBike controller", () => {
-  const bikesRepository: BikesRepository = {
-    getBikes: jest.fn(),
-    getBikesById: jest.fn(),
-    deleteBike: jest.fn(),
-    addBike: jest.fn(),
-    updateBike: jest.fn(),
-  };
-
+  const bikesRepository: BikesRepository = createMockBikesResolvedValue();
   const bikesController = new BikesController(bikesRepository);
 
   describe("When it receives a request of for an existing bike", () => {
@@ -27,7 +25,7 @@ describe("Given a deleteBike controller", () => {
         params: { id: idBike },
       };
 
-      const res: Pick<Response, "status" | "json"> = {
+      const res: ResponsePick = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
       };
@@ -51,7 +49,7 @@ describe("Given a deleteBike controller", () => {
         params: { id: idBike },
       };
 
-      const res: Pick<Response, "status" | "json"> = {
+      const res: ResponsePick = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
       };
@@ -71,27 +69,17 @@ describe("Given a deleteBike controller", () => {
 
     describe("When it receives a request with an incorrect bike id", () => {
       test("Then it should call the next function with the error", async () => {
-        const idBike = "invalidId";
-        const expectedError: Partial<CustomError> = {
-          message: "Error deleting bike",
-          statusCode: 400,
-        };
-
-        const bikesRepository: BikesRepository = {
-          getBikes: jest.fn(),
-          getBikesById: jest.fn(),
-          deleteBike: jest.fn().mockRejectedValue(expectedError),
-          addBike: jest.fn(),
-          updateBike: jest.fn(),
-        };
-
+        const expectedError = new CustomError("Error deleting bike", 400);
+        const bikesRepository: BikesRepository =
+          createMockBikesRejectedValue(expectedError);
         const bikesController = new BikesController(bikesRepository);
+        const idBike = "invalidId";
 
         const req: Partial<Request> = {
           params: { id: idBike },
         };
 
-        const res: Pick<Response, "status" | "json"> = {
+        const res: ResponsePick = {
           status: jest.fn().mockReturnThis(),
           json: jest.fn(),
         };

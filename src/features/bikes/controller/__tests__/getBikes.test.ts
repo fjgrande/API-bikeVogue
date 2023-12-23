@@ -2,28 +2,20 @@ import { type Request, type Response } from "express";
 import bikesMocks from "../../mocks/bikesMocks";
 import { type BikesRepository } from "../../repository/types";
 import BikesController from "../BikesController";
-import { type BikeData } from "../../types";
+import { createMockBikesResolvedValue } from "../../mocks/createMockBikesRepository";
+import { type ResponsePick } from "../../types";
 
 beforeEach(() => {
   jest.restoreAllMocks();
 });
 
-const bikes: BikeData[] = bikesMocks;
-
-const bikesRepository: BikesRepository = {
-  getBikes: jest.fn().mockResolvedValue(bikes),
-  getBikesById: jest.fn(),
-  deleteBike: jest.fn(),
-  addBike: jest.fn(),
-  updateBike: jest.fn(),
-};
-
+const bikesRepository: BikesRepository = createMockBikesResolvedValue();
 const bikesController = new BikesController(bikesRepository);
 
 describe("Given a BikesController's getBikes method", () => {
   describe("When it receives a request", () => {
     const req = {};
-    const res: Pick<Response, "status" | "json"> = {
+    const res: ResponsePick = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn().mockReturnThis(),
     };

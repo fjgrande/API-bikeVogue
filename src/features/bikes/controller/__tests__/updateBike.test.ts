@@ -6,20 +6,17 @@ import { type CustomUpdateRequest } from "../../types";
 import BikesController from "../BikesController";
 import Bike from "../../model/Bike";
 import CustomError from "../../../../server/CustomError/CustomError";
+import {
+  createMockBikesRejectedValue,
+  createMockBikesResolvedValue,
+} from "../../mocks/createMockBikesRepository";
 
 beforeEach(() => {
   jest.clearAllMocks();
 });
 
 describe("Given a updateBike controller", () => {
-  const bikesRepository: BikesRepository = {
-    getBikes: jest.fn(),
-    getBikesById: jest.fn(),
-    deleteBike: jest.fn(),
-    addBike: jest.fn(),
-    updateBike: jest.fn().mockResolvedValue(updateBikeMock),
-  };
-
+  const bikesRepository: BikesRepository = createMockBikesResolvedValue();
   const bikesController = new BikesController(bikesRepository);
 
   describe("When it receives a request with valid bike, a response and a next function", () => {
@@ -80,14 +77,8 @@ describe("Given a updateBike controller", () => {
     const next = jest.fn();
     test("Then it should call the next function with the error message 'Can't update this bike' and status code '400'", async () => {
       const expectedError = new CustomError("Can't update this bike", 400);
-      const bikesRepository: BikesRepository = {
-        getBikes: jest.fn(),
-        getBikesById: jest.fn(),
-        deleteBike: jest.fn(),
-        addBike: jest.fn(),
-        updateBike: jest.fn().mockRejectedValue(expectedError),
-      };
-
+      const bikesRepository: BikesRepository =
+        createMockBikesRejectedValue(expectedError);
       const bikesController = new BikesController(bikesRepository);
 
       Bike.findByIdAndUpdate = jest

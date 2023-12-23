@@ -4,7 +4,6 @@ import "../../../../setupTests";
 import request from "supertest";
 import { badUpdateBikeMock, updateBikeMock } from "../../mocks/addBikeMock";
 import Bike from "../../model/Bike";
-import bikesMocks from "../../mocks/bikesMocks";
 
 describe("Given a PUT method '/bikes' endpoint", () => {
   describe("When it receives a valid bike in the body's request", () => {

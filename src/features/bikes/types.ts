@@ -1,5 +1,5 @@
 import { type Types } from "mongoose";
-import { type Request } from "express";
+import { type Response, type Request } from "express";
 
 export interface BikeData {
   model: string;
@@ -23,3 +23,5 @@ export interface CustomRequest extends Request {
 export interface CustomUpdateRequest extends Request {
   body: BikeStructure;
 }
+
+export type ResponsePick = Pick<Response, "status" | "json">;
